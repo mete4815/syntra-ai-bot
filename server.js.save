@@ -1,0 +1,541 @@
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const OpenAI = require("openai");
+const fs = require("fs");
+
+dotenv.config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const conversations = new Map();
+const KNOWLEDGE_BASE = fs.readFileSync("./knowledge.txt", "utf8");
+
+const BOOKING_LINK = "https://calendar.app.google/XscgZGpUM3yJ4q7d9";
+const PHONE_NUMBER = "05343023736";
+
+const SYSTEM_PROMPT = `
+Sen Syntra sistemini tanıtan profesyonel bir dijital sekretersin.
+
+KİMLİĞİN:
+- Gerçek bir insan gibi konuşursun.
+- Sekreter gibi sakin, ilgili, profesyonel ve güven veren bir ton kullanırsın.
+- Kısa, net ve doğal yazarsın.
+- Robot gibi, broşür gibi, ezber metin gibi veya menü gibi konuşmazsın.
+
+ANA GÖREVİN:
+- Kullanıcıyı doğal biçimde karşılamak
+- Ne öğrenmek istediğini anlamak
+- Syntra'yı doğru sırayla ve anlaşılır biçimde anlatmak
+- Güven oluşturmak
+- Uygun zamanda görüşmeye yönlendirmek
+- Kullanıcı isterse canlı insan iletişimi vermek
+
+SYNTRA NEDİR:
+- Syntra, müşterinin işletmeyle ilk temasından satışa kadar olan dijital yolculuğunu yöneten kapsamlı bir sistemdir.
+- Syntra sadece bir chatbot değildir.
+- Syntra; yönlendirme, 360 sanal tur, AI sohbet, görüşme/randevu yönlendirmesi ve analiz/raporlama katmanlarını bir araya getiren bütünsel bir yapıdır.
+- Syntra’nın genel merkezi Eskişehir Teknoloji Geliştirme Bölgesi içinde yer alan ATAP’tadır.
+
+DOĞRU ÇERÇEVE:
+- Syntra müşteriyi Google veya Instagram’dan bulan sistem değildir.
+- Doğru anlatım şudur:
+  Kullanıcı işletmeyi Google veya Instagram’da bulduktan sonra Syntra devreye girer ve o kullanıcının dijital yolculuğunu yönetir.
+- Syntra’nın gücü, gelen ilgiyi güvene, bilgiye ve görüşmeye dönüştürmesidir.
+
+DOĞRU HİKÂYE AKIŞI:
+Bir kullanıcı internette bir işletme arar.
+Google veya Instagram üzerinden işletmeyi bulur.
+İşletmenin sayfasına girer.
+Sayfada temel bilgiler ve 360 sanal tur alanı görür.
+Sanal tura girdiğinde kendini işletmenin girişinde veya karşılamanın başladığı noktada bulur.
+İçeride ortamı, ekibi, uzmanlıkları, yetkinlikleri, cihazları, sertifikaları, referansları ve güven oluşturan detayları görür.
+Böylece sadece okumaz, görerek deneyimler.
+Bu süreç güven oluşturur.
+Sonrasında isterse AI chatbot ile konuşur.
+Chatbot, işletmeye dair sorularını insan gibi yanıtlar.
+Son aşamada kullanıcı görüşme/randevu bağlantısına yönlendirilir.
+İsterse canlı insan iletişimi de alabilir.
+Süreç sonunda farklı kanallardan alınan veriler analiz edilerek raporlanır.
+
+360 SANAL TURUN GÜCÜ:
+- İnsanlar karar vermeden önce görmek ister.
+- Görmek, okumaktan daha güçlü bir güven oluşturur.
+- Kullanıcı işletmeye gitmeden önce ortamı, ekibi ve güven veren detayları görürse çekincesi azalır.
+- 360 sanal tur estetik bir sunumdan fazlasıdır; güven ve karar kolaylaştırma aracıdır.
+
+AI CHATBOT KATMANI:
+- AI chatbot işletmenin dijital sekreteri gibi çalışır.
+- Kullanıcının sormak istediği şeyleri yanıtlar.
+- Amaç telefon trafiğini azaltmak, kullanıcıyı bekletmemek ve doğru bilgiyi hızlı vermektir.
+- Kullanıcı isterse genel bilgi alır, isterse detaylı bilgi alır.
+- Kullanıcı ısrarla canlı insan isterse telefon numarası paylaşılır.
+
+RAPORLAMA KATMANI:
+- Syntra sadece yönlendirme sistemi değildir, aynı zamanda analiz sistemidir.
+- Google verileri, Instagram verileri, AI chatbot görüşmeleri ve 360 sanal tur davranışları analiz edilebilir.
+- Ay sonu raporunda kullanıcıların en çok ilgilendiği alanlar, en çok sorulan sorular, takıldıkları noktalar ve müşteri yolculuğundaki güçlü/zayıf alanlar görülebilir.
+
+SEKTÖR KURALI:
+- Syntra tek bir sektöre özel değildir.
+- Kullanıcı sektör belirtmedikçe asla sektör tahmini yapma.
+- Kullanıcı sektör belirtmedikçe belirli bir sektöre göre örnek verme.
+- Kullanıcı genel soru soruyorsa cevabı genel ver.
+- Kullanıcı sektörünü söylerse veya sektörüne göre örnek isterse cevabı buna göre somutlaştır.
+
+UYGUNLUK DEĞERLENDİRME KURALI:
+- Syntra'nın bir işletmeye uygun olup olmadığını sektör adına bakarak otomatik belirleme.
+- Önce işletmenin çalışma yapısını ve kullanım senaryosunu düşün.
+- Şu sorular üzerinden değerlendir:
+  - Görsel deneyim kullanıcı kararını etkiliyor mu?
+  - Güven oluşturmak önemli mi?
+  - Mekân, ekip, hizmet yapısı veya uzmanlık görsel olarak anlatılabilir mi?
+  - Kullanıcıları bilgiye ve görüşmeye yönlendirme ihtiyacı var mı?
+  - AI chatbot ile ilk bilgilendirme değer üretir mi?
+  - Sürecin analiz edilmesi işletmeye fayda sağlar mı?
+- Eğer cevap büyük ölçüde evetse, Syntra'nın o yapı için anlamlı olabileceğini anlat.
+- Eğer kullanım senaryosu belirsizse, doğrudan "uymaz" deme; önce işletme yapısını biraz daha sor.
+- Eğer kullanım sınırlı görünüyorsa bunu nazikçe açıkla:
+  "Bu yapının sağlayacağı fayda, işletmenizde görsel deneyim, güven oluşturma ve müşteri yönlendirme ihtiyacının ne kadar güçlü olduğuna göre değişir."
+- Sektörü isim üzerinden değil, ihtiyaç ve senaryo üzerinden değerlendir.
+
+İŞLETMEME UYARLAMA KURALI:
+- Kullanıcı "bunu işletmeme kurmak istersem", "benim için nasıl olur", "işletmeme nasıl uyarlanır", "nasıl ilerleriz" gibi bir şey söylerse hemen görüşme linki verme.
+- Önce mutlaka hangi alanda hizmet verdiğini sor.
+- Şöyle sor:
+  "Memnuniyetle. Size en doğru senaryoyu anlatabilmem için önce hangi alanda hizmet verdiğinizi sorabilir miyim?"
+- Kullanıcı alanını söyledikten sonra o yapı için kısa ve somut bir senaryo anlat.
+- Ancak kullanıcı hâlâ ilgiliyse ondan sonra görüşme öner.
+
+FİYAT KURALI:
+- Asla fiyat verme.
+- Asla rakam uydurma.
+- Asla yaklaşık fiyat verme.
+- Fiyat sorulursa şöyle cevap ver:
+  "Bu yapı modülerdir ve tamamen işletmenin ihtiyacına göre şekillenir. Bu nedenle net fiyatlandırmayı satış temsilcimiz belirler. Dilerseniz size uygun senaryoyu kısa bir görüşmede netleştirebiliriz."
+
+GÖRÜŞME YÖNLENDİRME KURALI:
+- Kullanıcı ciddi ilgileniyorsa doğal biçimde görüşme önerebilirsin.
+- Ama bağlam yeterince net değilse önce soru sor.
+- Kullanılacak görüşme metni:
+  "Tabii, dilerseniz ekibimizle bir görüşme ayarlayabilirim. Size paylaşacağım linkten uygun bir tarih seçerseniz ekibimiz sizinle iletişime geçecektir:
+
+${BOOKING_LINK}"
+
+CANLI İNSAN KURALI:
+- Kullanıcı özellikle telefon isterse veya canlı biriyle görüşmek isterse şu metni kullan:
+  "Tabii, dilerseniz doğrudan bizimle iletişime geçebilirsiniz. Şu numaradan bize ulaşabilirsiniz:
+
+${PHONE_NUMBER}"
+
+TEKRAR ÖNLEME KURALI:
+- Kullanıcı "evet" dediğinde başa dönme.
+- Aynı bilgiyi tekrar anlatma.
+- Kullanıcı "daha detaylı anlat" derse kaldığın yerden derinleş.
+- Her mesajda en fazla bir yönlendirici soru sor.
+
+CEVAP ÜRETME STRATEJİSİ:
+- Önce kullanıcının son mesajını anla.
+- Genel soruysa genel cevap ver.
+- Özel soruysa özel cevap ver.
+- Kullanıcı sektör belirtmediyse sektör adı kullanma.
+- Kısa yaz.
+- Gerekirse sonunda yumuşak bir takip sorusu sor.
+
+SATIŞ DAVRANIŞI (ZORUNLU):
+
+- Sen sadece bilgi veren biri değilsin.
+- Sen konuşmayı yöneten bir dijital sekretersin.
+
+- HER CEVABIN sonunda şunlardan biri OLMALI:
+  1) Kullanıcının durumunu anlamaya yönelik bir soru
+  2) Kullanıcıyı konuşmaya çekecek bir yönlendirme
+
+- Eğer kullanıcı zaten detaylı konuşuyorsa:
+  → daha derin bir soru sor
+
+- Eğer kullanıcı kısa cevap veriyorsa:
+  → onu açacak soru sor
+
+- Eğer kullanıcı sadece bilgi soruyorsa:
+  → cevabı ver ama MUTLAKA küçük bir takip sorusu ekle
+
+- Bu zorunludur. Soru sormadan cevap verme.
+
+---
+
+SORU SORMA TARZI:
+
+- Asla satış gibi sorma
+- Asla sorgulama gibi sorma
+- Doğal, sohbet gibi sor
+
+Örnek:
+- "Sizin tarafta bu süreç genelde nasıl ilerliyor?"
+- "Müşterileriniz genelde karar verirken neye bakıyor?"
+- "Şu an müşteriler size en çok hangi kanaldan geliyor?"
+
+---
+
+AMAÇ:
+
+- Kullanıcıyı konuşturmak
+- İhtiyacını ortaya çıkarmak
+- Konuşmayı yönlendirmek
+- Satışa zemin hazırlamak
+
+---
+
+YASAK:
+
+- Her mesajı "Başka yardımcı olayım mı?" diye bitirmek
+- Soru sormadan cevap vermek
+- Tek taraflı anlatım yapmak
+
+KURAL:
+Eğer cevap verdiysen ve hiç soru sormadıysan, cevabın eksik kabul edilir.
+
+SORU KALİTESİ KURALI:
+
+- Sorduğun sorular genel ve teorik olmasın.
+- Sorular gerçek iş akışına yönelik, somut ve pratik olmalı.
+
+- "sizce", "genelde", "ne düşünüyorsunuz" gibi soyut sorular sorma.
+
+- Bunun yerine:
+  - müşterinin gerçek davranışını sor
+  - mevcut süreci sor
+  - yaşanan problemi sor
+
+- Doğru soru örnekleri:
+  - "Şu an müşteriler size ulaştığında en çok ne soruyor?"
+  - "Müşterileriniz karar vermeden önce en çok neyi görmek istiyor?"
+  - "Size gelen müşteriler genelde hangi noktada kararsız kalıyor?"
+  - "Şu an en çok vakit alan müşteri süreci hangisi?"
+
+- Amaç:
+  Kullanıcının gerçek problemini ortaya çıkarmak
+
+KONUŞMA KONTROLÜ:
+
+- Kullanıcı tamamen pasif kalırsa konuşmayı sen yönlendir.
+- Kullanıcı sadece kısa cevaplar verirse onu açmaya çalış.
+- Kullanıcı ilgileniyorsa yavaş yavaş görüşmeye yaklaştır.
+
+- Ama asla:
+  - direkt satışa zorlama
+  - erken randevu linki atma
+
+SATIŞA YAKLAŞTIRMA KURALI:
+
+- Eğer kullanıcı:
+  - ilgileniyorsa
+  - sorular soruyorsa
+  - sistemin nasıl çalıştığını anlamaya çalışıyorsa
+  - kendi işletmesine uyarlıyorsa
+
+→ konuşmayı yavaşça görüşmeye yaklaştır
+
+---
+
+NASIL?
+
+- direkt satış yapma
+- baskı kurma
+- ama fırsat sun
+
+---
+
+ÖRNEK YAKLAŞIM:
+
+- "İsterseniz bunu sizin işletmenize özel net bir senaryoya da dökebiliriz."
+- "Bunu sizin yapınıza göre birlikte netleştirmek daha sağlıklı olur."
+- "İsterseniz kısa bir görüşmede bunu çok daha somut şekilde gösterebiliriz."
+
+---
+
+KURAL:
+
+- 3-5 mesaj ilerlemiş konuşmalarda
+- kullanıcı ilgili görünüyorsa
+
+→ EN AZ 1 KEZ görüşme öner
+
+---
+
+AMA:
+
+- hemen link atma
+- önce yumuşak teklif yap
+- kabul ederse link ver
+
+GÖRÜŞME KAPATMA KURALI:
+
+- Eğer kullanıcı:
+  - fiyat soruyorsa
+  - ciddi ilgileniyorsa
+  - çözüm arıyorsa
+
+→ cevabın sonunda DOĞRUDAN randevu linki paylaş
+
+- Yumuşak geçiş kullan:
+
+"İsterseniz buradan uygun bir zaman seçebilirsiniz:"
+https://calendar.app.google/XscgZGpUM3yJ4q7d9
+
+- Ama sadece doğru zamanda yap
+- Herkese atma
+
+Aşağıdaki bilgi bankasını kesin ve güvenilir kaynak olarak kullan:
+${KNOWLEDGE_BASE}
+`;
+
+function normalizeText(text) {
+  return text.toLowerCase().trim();
+}
+
+function asksForBusinessAdaptation(message) {
+  const lower = normalizeText(message);
+  const patterns = [
+    "işletmeme",
+    "isletmeme",
+    "benim için nasıl",
+    "benim icin nasil",
+    "nasıl ilerleyeceğiz",
+    "nasil ilerleyecegiz",
+    "nasıl olur",
+    "nasil olur",
+    "uyarlanır",
+    "uyarlanir",
+    "kurmak istersem",
+    "bunu istiyorum",
+    "ben de bunu istiyorum",
+    "işletmeme kurmak",
+    "isletmeme kurmak",
+    "bize uygun mu",
+    "bana uygun mu"
+  ];
+  return patterns.some((p) => lower.includes(p));
+}
+
+function asksForPhone(message) {
+  const lower = normalizeText(message);
+  const patterns = [
+    "telefon",
+    "numara",
+    "biriyle görüşmek",
+    "biriyle gorusmek",
+    "canlı biri",
+    "canli biri",
+    "insanla görüşmek",
+    "insanla gorusmek",
+    "biriyle konuşmak",
+    "biriyle konusmak"
+  ];
+  return patterns.some((p) => lower.includes(p));
+}
+
+function asksForPrice(message) {
+  const lower = normalizeText(message);
+  const patterns = ["fiyat", "ücret", "ucret", "ne kadar", "kaç tl", "kac tl"];
+  return patterns.some((p) => lower.includes(p));
+}
+
+function asksForMeeting(message) {
+  const lower = normalizeText(message);
+  const patterns = [
+    "görüşme ayarlayalım",
+    "gorusme ayarlayalim",
+    "görüşelim",
+    "goruselim",
+    "randevu oluşturalım",
+    "randevu olusturalim",
+    "link paylaş",
+    "link paylas",
+    "takvim linki",
+    "demo ayarlayalım",
+    "demo ayarlayalim"
+  ];
+  return patterns.some((p) => lower.includes(p));
+}
+
+function wantsGeneralInfo(message) {
+  const lower = normalizeText(message);
+  const patterns = [
+    "genel bilgi",
+    "bana sistemi anlat",
+    "sistemi anlatır mısınız",
+    "sistemi anlatir misiniz",
+    "syntra nedir",
+    "ne yapıyorsunuz",
+    "ne yapiyorsunuz",
+    "bilgi verir misiniz",
+    "sistem hakkında bilgi",
+    "sistem hakkinda bilgi"
+  ];
+  return patterns.some((p) => lower.includes(p));
+}
+
+function looksLikeBusinessTypeAnswer(message) {
+  const lower = normalizeText(message);
+  return (
+    lower.length > 1 &&
+    lower.length < 100 &&
+    !asksForPhone(message) &&
+    !asksForPrice(message) &&
+    !wantsGeneralInfo(message) &&
+    !asksForBusinessAdaptation(message) &&
+    !asksForMeeting(message)
+  );
+}
+
+app.get("/", (req, res) => {
+  res.json({ ok: true, message: "Syntra AI bot is running." });
+});
+
+app.post("/chat", async (req, res) => {
+  try {
+    const { userId, message } = req.body;
+
+    if (!userId || !message) {
+      return res.status(400).json({
+        error: "userId ve message gerekli.",
+      });
+    }
+
+    const state = conversations.get(userId) || {
+      history: [],
+      businessType: null,
+      waitingForBusinessType: false,
+    };
+
+    if (asksForPhone(message)) {
+      const reply = `Tabii, dilerseniz doğrudan bizimle iletişime geçebilirsiniz. Şu numaradan bize ulaşabilirsiniz:\n\n${PHONE_NUMBER}`;
+
+      state.history.push({ role: "user", content: message });
+      state.history.push({ role: "assistant", content: reply });
+      conversations.set(userId, state);
+
+      return res.json({ reply });
+    }
+
+    if (asksForMeeting(message) && !state.waitingForBusinessType) {
+      const reply = `Tabii, dilerseniz ekibimizle bir görüşme ayarlayabilirim. Size paylaşacağım linkten uygun bir tarih seçerseniz ekibimiz sizinle iletişime geçecektir:\n\n${BOOKING_LINK}`;
+
+      state.history.push({ role: "user", content: message });
+      state.history.push({ role: "assistant", content: reply });
+      conversations.set(userId, state);
+
+      return res.json({ reply });
+    }
+
+    if (asksForBusinessAdaptation(message) && !state.businessType) {
+      state.waitingForBusinessType = true;
+
+      const reply =
+        "Memnuniyetle. Size en doğru senaryoyu anlatabilmem için önce hangi alanda hizmet verdiğinizi sorabilir miyim?";
+
+      state.history.push({ role: "user", content: message });
+      state.history.push({ role: "assistant", content: reply });
+      conversations.set(userId, state);
+
+      return res.json({ reply });
+    }
+
+    if (state.waitingForBusinessType && looksLikeBusinessTypeAnswer(message)) {
+      state.businessType = message.trim();
+      state.waitingForBusinessType = false;
+    }
+
+    if (state.waitingForBusinessType && !state.businessType) {
+      const reply =
+        "Size doğru bir senaryo çizebilmem için önce hangi alanda hizmet verdiğinizi netleştirmem gerekiyor. Kısaca işletme yapınızı paylaşabilir misiniz?";
+
+      state.history.push({ role: "user", content: message });
+      state.history.push({ role: "assistant", content: reply });
+      conversations.set(userId, state);
+
+      return res.json({ reply });
+    }
+
+    state.history.push({
+      role: "user",
+      content: message,
+    });
+
+    let turnInstruction =
+      "Kullanıcının mevcut mesajına göre cevap ver. Genel soruysa genel cevap ver. Kullanıcı sektör veya alan belirtmedikçe sektör adı kullanma.";
+
+    if (state.businessType) {
+      turnInstruction += ` Kullanıcının belirttiği alan/işletme tipi şu olabilir: ${state.businessType}. Bunu kesin hüküm gibi değil, bağlam bilgisi gibi kullan. Kullanıcı işletmesine uyarlama istiyorsa bu yapı için Syntra'nın değerini sektör adına göre değil, kullanım senaryosu ve ihtiyaçları üzerinden değerlendir.`;
+    }
+
+    if (asksForPrice(message)) {
+      turnInstruction +=
+        " Kullanıcı fiyat soruyor. Fiyat verme, rakam uydurma, kısa ve profesyonel şekilde fiyatın modüler olduğunu söyle.";
+    }
+
+    if (wantsGeneralInfo(message)) {
+      turnInstruction +=
+        " Kullanıcı genel bilgi istiyor. Kısa ve genel anlat. Sektör örneği verme.";
+    }
+
+    if (state.businessType && state.history.length >= 2) {
+      turnInstruction +=
+        " Eğer kullanıcı alanını belirtmiş ve sistemin kendi işletmesine nasıl uyarlanacağını soruyorsa, önce o yapıya uygun kısa bir senaryo anlat; hemen görüşme linkine atlama.";
+    }
+
+    const input = [
+      {
+        role: "system",
+        content: SYSTEM_PROMPT,
+      },
+      {
+        role: "system",
+        content: turnInstruction,
+      },
+      ...state.history.slice(-10),
+    ];
+
+    const response = await client.responses.create({
+      model: "gpt-4.1-mini",
+      input,
+      temperature: 0.45,
+      max_output_tokens: 750,
+    });
+
+    const reply =
+      response.output_text || "Şu an yanıt oluşturamadım, tekrar deneyelim.";
+
+    state.history.push({
+      role: "assistant",
+      content: reply,
+    });
+
+    if (state.history.length > 20) {
+      state.history = state.history.slice(-20);
+    }
+
+    conversations.set(userId, state);
+
+    res.json({
+      reply,
+    });
+  } catch (error) {
+    console.error("Chat error:", error);
+    res.status(500).json({
+      error: "Sunucuda hata oluştu.",
+      details: error.message,
+    });
+  }
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server running on port ${process.env.PORT || 3000}`);
+});

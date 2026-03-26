@@ -1,0 +1,332 @@
+SYNTRA BİLGİ BANKASI
+
+1. SYNTRA NEDİR?
+
+Syntra, bir işletmenin dijital dünyada karşılaştığı potansiyel müşterileri yakalayan, içeri çeken, güven oluşturan, bilgilendiren, yönlendiren ve sonunda satışa kadar taşıyan kapsamlı bir dijital müşteri yolculuğu sistemidir.
+
+Syntra’yı yalnızca bir chatbot, yalnızca bir 360 sanal tur ya da yalnızca bir yönlendirme aracı gibi düşünmek yanlıştır.
+
+Syntra aslında:
+- dijital karşılama sistemi,
+- dijital güven oluşturma sistemi,
+- dijital yönlendirme sistemi,
+- dijital satış hazırlık sistemi,
+- dijital müşteri analiz sistemi
+olarak çalışan bütünsel bir yapıdır.
+
+Syntra’nın amacı yalnızca bilgi vermek değil, müşteriyi dağılmadan, kaybolmadan ve sıkılmadan son aşama olan görüşme ve satış noktasına kadar taşımaktır.
+
+Bu nedenle Syntra, bir “dijital müşteri asistanı” gibi düşünülebilir:
+müşteriyi yalnızca yakalayan değil, yakaladıktan sonra elinde tutan, ilgisini kaybettirmeyen ve doğru yöne sürükleyen bir sistemdir.
+
+2. SYNTRA’NIN TEMEL FELSEFESİ
+
+Syntra’nın çıkış mantığı şudur:
+
+Bir müşteri bir işletmeyi internette gördüğünde çoğu zaman şunları yaşar:
+- kararsızlık
+- güvensizlik
+- bilgi eksikliği
+- ilgisini çabuk kaybetme
+- telefon açmak istememe
+- doğrudan iletişim kurmaktan çekinme
+- mekânı ve hizmet kalitesini anlayamama
+
+Syntra, tam olarak bu boşluğu kapatır.
+
+Syntra müşteriye şunu sağlar:
+- sadece okumak değil, görmek
+- sadece görmek değil, hissetmek
+- sadece hissetmek değil, soru sormak
+- sadece soru sormak değil, yönlendirilmek
+- sadece yönlendirilmek değil, satışa yaklaşmak
+
+Bu yüzden Syntra’nın temel gücü:
+müşteriyi pasif bir ziyaretçiden aktif ve sıcak bir adaya dönüştürmesidir.
+
+3. SYNTRA MÜŞTERİYİ NEREDEN YAKALAR?
+
+Syntra tek bir giriş kanalına bağlı değildir.
+
+Müşteri şu kanalların herhangi birinden gelebilir:
+- Instagram
+- Google araması
+- web sitesi
+- sosyal medya bağlantıları
+- reklam linkleri
+- WhatsApp yönlendirmesi
+- QR kod içeren fiziksel reklamlar
+- afiş, broşür, tabela gibi fiziksel materyaller
+- e-posta veya mesaj içindeki yönlendirme linkleri
+- kampanya bağlantıları
+
+Yani Syntra’nın mantığı yalnızca “Google’dan gelen müşteri” veya “Instagram’dan gelen müşteri” değildir.
+
+Doğru yaklaşım şudur:
+Müşteri hangi kapıdan gelirse gelsin, Syntra onu içeride yakalayan ve yolculuğunu yöneten sistemdir.
+
+Bu nedenle Syntra’yı trafik kaynağı değil, trafik sonrası müşteri yönetim sistemi olarak görmek gerekir.
+
+4. SYNTRA NASIL ÇALIŞIR? (GENEL MÜŞTERİ YOLCULUĞU)
+
+Syntra’nın doğru anlatımı her zaman müşteri yolculuğu üzerinden yapılmalıdır.
+
+Adım adım akış şu şekildedir:
+
+1. Müşteri bir ihtiyaç hisseder.
+Örneğin bir klinik, güzellik merkezi, emlak ofisi, kuaför, danışmanlık ofisi veya başka bir hizmet işletmesi arıyor olabilir.
+
+2. Müşteri internette araştırma yapar.
+Google, Instagram, sosyal medya, bir reklam bağlantısı, bir QR kod veya başka bir kanal üzerinden işletmeye ulaşır.
+
+3. Müşteri işletmenin dijital sayfasına gelir.
+Bu noktada normalde birçok müşteri ya çıkar ya da yüzeysel bilgiyle yetinir.
+Syntra burada devreye girer.
+
+4. Müşteri karşısında yalnızca yazı ve birkaç fotoğraf görmez.
+Dijital sayfada dikkat çekici bir 360 sanal tur alanı veya yönlendirici bir giriş noktası görür.
+
+5. Müşteri sanal tur deneyimine geçer.
+Burada kendini alakasız bir sayfada değil, doğrudan işletmenin girişinde ya da karşılamanın başladığı alanda bulur.
+
+6. Müşteri işletmenin içine dijital olarak girer.
+İçeride yalnızca görsel gezinti yapmaz; güven oluşturan detaylarla karşılaşır.
+
+7. Müşteri ortamı ve güven unsurlarını deneyimler.
+Bunlar şunlar olabilir:
+- işletmenin genel görünümü
+- temizlik ve düzen
+- ekip yapısı
+- uzmanlar
+- yetkinlikler
+- sertifikalar
+- diplomalar
+- kullanılan cihazlar
+- hizmet alanları
+- uygulama noktaları
+- önce/sonra örnekleri
+- referanslar
+- işletmenin kalitesini gösteren detaylar
+
+8. Müşteri yalnızca bakmaz, zihninde bir güven hissi oluşturmaya başlar.
+Bu aşama çok kritiktir.
+Çünkü müşteri henüz satışa gelmemiştir ama artık uzak bir ziyaretçi de değildir.
+
+9. Müşteri sonraki adıma geçer.
+Sanal turun içinde veya giriş alanında yer alan bağlantı ile AI chatbot alanına aktarılır ya da doğrudan chatbotla etkileşime girer.
+
+10. Chatbot devreye girer.
+Burada müşteri bir personelle konuşuyormuş gibi işletme hakkında soru sorar, detay ister, karar vermeye çalışır.
+
+11. Chatbot müşteriyi yönlendirir.
+Sorularını yanıtlar, belirsizlikleri azaltır, kullanıcıyı sıkmadan ilerletir.
+
+12. Son aşamada müşteri ya:
+- görüşme/randevu bağlantısına yönlendirilir
+veya
+- canlı bir insanla görüşmek isterse telefon numarası alır
+
+13. Tüm süreç veri üretir.
+Müşterinin hangi alanlara baktığı, neyle ilgilendiği, ne sorduğu, nerede kaldığı, nerede ilerlediği gibi veriler analiz edilir.
+
+14. Ay sonunda raporlama yapılır.
+Böylece işletme yalnızca müşteri almakla kalmaz, müşterinin nasıl davrandığını da öğrenir.
+
+5. SYNTRA’NIN EN GÜÇLÜ KATMANI: 360 SANAL TUR
+
+Syntra’daki 360 sanal tur katmanı sadece “güzel görünen bir özellik” değildir.
+
+Bu katmanın temel işlevi:
+görsel güven oluşturmaktır.
+
+İnsanlar hizmet satın almadan önce görmek ister.
+Özellikle şu tip işletmelerde bu çok daha güçlüdür:
+- klinikler
+- güzellik merkezleri
+- kuaförler
+- emlak ofisleri
+- showroom yapıları
+- eğitim kurumları
+- danışmanlık ve ofis yapıları
+- deneyim satan hizmet işletmeleri
+
+Çünkü bu yapılarda müşteri şunu merak eder:
+- içerisi nasıl görünüyor?
+- güvenilir bir yer mi?
+- profesyonel bir ortam mı?
+- kimler çalışıyor?
+- ne kadar düzenli?
+- hizmet kalitesi hissediliyor mu?
+- gerçekten anlatıldığı gibi mi?
+
+360 sanal tur, müşterinin aklındaki bu soru işaretlerini azaltır.
+
+Bu nedenle Syntra’daki 360 tur:
+- yalnızca gezinti değil,
+- yalnızca görüntü değil,
+- yalnızca tasarım değil,
+- bir güven inşa etme aracıdır.
+
+Doğru anlatım şudur:
+İnsanlar karar vermeden önce görmek ister.
+Syntra da müşteriye bunu sağlar.
+
+6. SYNTRA’DAKİ ETKİLEŞİM NOKTALARI NE İŞE YARAR?
+
+Sanal turun içinde yer alan etkileşim alanları, Syntra’nın fark yaratan yönlerinden biridir.
+
+Bu alanlar müşteriye yalnızca mekan gezdirmek için kullanılmaz.
+Asıl amaç:
+mekânın içinde güven oluşturan bilgi katmanları sunmaktır.
+
+Bu alanlarda şunlar gösterilebilir:
+- sertifikalar
+- diplomalar
+- uzmanlık belgeleri
+- ekip bilgileri
+- cihaz bilgileri
+- kullanılan teknoloji
+- hizmet açıklamaları
+- referans alanları
+- önce/sonra içerikleri
+- öne çıkan noktalar
+- işletmenin farklı bölümlerine dair açıklamalar
+
+Yani müşteri işletmenin içine girer ama aslında işletmenin değer teklifini deneyimler.
+
+7. AI CHATBOT KATMANI NEDİR?
+
+Syntra içindeki AI chatbot, sıradan bir soru-cevap botu değildir.
+
+Doğru tanım:
+işletmenin dijital sekreteri.
+
+Bu chatbotun görevi:
+- müşteriyi karşılamak
+- onun sormak istediği şeyleri yanıtlamak
+- telefon trafiğini azaltmak
+- müşteriyi bekletmeden bilgi vermek
+- kararsızlığı azaltmak
+- güven duygusunu korumak
+- konuşmayı satışa yaklaşan noktaya taşımak
+
+Chatbotun amacı müşteriyi sıkmak değildir.
+Amaç müşterinin istediği kadar bilgiye kolayca ulaşmasını sağlamaktır.
+
+Müşteri isterse:
+- kısa bilgi alır
+- detaylı bilgi alır
+- sistemin nasıl çalıştığını öğrenir
+- kendi işletmesine nasıl uyarlanacağını sorar
+- sektörüne göre örnek ister
+- fiyat politikasını sorar
+- canlı biriyle görüşmek ister
+
+Chatbot tüm bu adımlarda personel gibi davranmalıdır.
+
+8. TELEFON TRAFİĞİNİ AZALTMA MANTIĞI
+
+Birçok müşteri doğrudan telefon açmak istemez.
+Bazıları çekinir.
+Bazıları sadece bilgi almak ister.
+Bazıları daha hazır hissetmeden insanla görüşmek istemez.
+
+Syntra’nın chatbot katmanı burada devreye girer.
+
+Böylece:
+- işletmenin telefonu gereksiz sorularla meşgul olmaz
+- müşteri cevap almak için beklemez
+- ekip zamanı daha verimli kullanır
+- gerçekten ilgilenen müşteri daha sıcak hale gelir
+
+Ama önemli nokta şudur:
+Müşteri ısrarla bir insanla görüşmek istiyorsa, bu engellenmez.
+O noktada telefon numarası paylaşılır.
+
+9. RANDEVU / GÖRÜŞME AŞAMASI
+
+Syntra’nın amacı müşteriyi zorla satışa itmek değildir.
+Ama müşteriyi hazırlayıp doğru anda yönlendirmektir.
+
+Bu yönlendirme iki yolla olabilir:
+- görüşme / randevu bağlantısı
+- doğrudan telefon ile canlı iletişim
+
+Randevu bağlantısı:
+https://calendar.app.google/XscgZGpUM3yJ4q7d9
+
+Telefon numarası:
+05343023736
+
+Doğru kullanım mantığı:
+- müşteri ilgilendiyse
+- daha detaylı konuşmak istiyorsa
+- kendi işletmesine uyarlamak istiyorsa
+- fiyatı öğrenmek istiyorsa
+- süreci ilerletmek istiyorsa
+
+önce uygun bağlam kurulur, sonra görüşme önerilir.
+
+10. FİYAT MANTIĞI
+
+Syntra için fiyat sabit değildir.
+Çünkü yapı modülerdir.
+Her işletmenin ihtiyacı aynı değildir.
+
+Bu nedenle:
+- asla net fiyat verilmez
+- asla rakam uydurulmaz
+- asla yaklaşık teklif yapılmaz
+
+Doğru anlatım şudur:
+Bu yapı modülerdir ve tamamen işletmenin ihtiyacına göre şekillenir.
+Bu nedenle net fiyatlandırmayı satış temsilcisi belirler.
+İstenirse kısa bir görüşmede uygun senaryo netleştirilebilir.
+
+11. RAPORLAMA VE ANALİZ KATMANI
+
+Syntra’nın güçlü yönlerinden biri de süreci ölçebilmesidir.
+
+Bu sistem sadece müşteriyi karşılamaz.
+Aynı zamanda veriyi anlamlandırır.
+
+Analiz edilebilecek kaynaklar:
+- Google verileri
+- Instagram verileri
+- AI chatbot görüşmeleri
+- 360 sanal tur davranışları
+- kullanıcıların en çok baktığı alanlar
+- kullanıcıların en çok sorduğu şeyler
+- takıldıkları noktalar
+- memnuniyet sinyalleri
+- memnuniyetsizlik sinyalleri
+
+Ay sonu raporunda şu tür içgörüler oluşabilir:
+- en çok dikkat çeken alanlar
+- kullanıcıların en çok gezdiği bölümler
+- güven oluşturan güçlü noktalar
+- kullanıcıların karar verirken zorlandığı yerler
+- sık sorulan sorular
+- satış yolculuğunda zayıf kalan noktalar
+
+Yani Syntra sadece müşteri getiren değil, müşteriyi anlamaya yardım eden bir sistemdir.
+
+12. SYNTRA HANGİ YAPILARDA ANLAMLI OLABİLİR?
+
+Syntra tek bir sektöre özel değildir.
+Ama her yere de aynı mantıkla uygulanmaz.
+
+Doğru değerlendirme sektör ismine göre değil, şu sorulara göre yapılmalıdır:
+- görsel deneyim önemli mi?
+- güven oluşturmak kritik mi?
+- mekan, ekip, hizmet yapısı anlatılabilir mi?
+- müşteri karar vermeden önce görmek istiyor mu?
+- AI chatbot ilk bilgilendirmede fayda sağlar mı?
+- kullanıcıyı görüşmeye taşımak önemli mi?
+- ölçüm ve analiz işletmeye değer katar mı?
+
+Eğer bu soruların çoğu evetse, Syntra o yapı için anlamlı olabilir.
+
+13. KURUMSAL BİLGİ
+
+Syntra’nın genel merkezi Eskişehir Teknoloji Geliştirme Bölgesi içinde yer alan ATAP’tadır.
