@@ -1,4 +1,4 @@
-const express = require("express");
+Wconst express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const OpenAI = require("openai");
@@ -148,6 +148,7 @@ Kullanıcı artık görüşmeye yakın.
 Bu aşamada konuşmayı uzatma.
 Link veya telefon yönlendirmesine geç.
 
+
 SATIŞ NİYETİ SAYILAN MESAJLAR:
 Aşağıdaki gibi mesajlar güçlü satış sinyalidir:
 - fiyat nedir
@@ -161,6 +162,19 @@ Aşağıdaki gibi mesajlar güçlü satış sinyalidir:
 - iletişime geçelim
 - telefonla görüşebilir miyiz
 - ekibinizle konuşmak istiyorum
+ÖNEMLİ AYRIM:
+Kullanıcı "randevu", "randevu sistemi", "randevu yönetimi" gibi ifadeleri kullanıyorsa bu her zaman satış sinyali değildir.
+
+Bu tür mesajlar çoğunlukla sistemin özelliklerini öğrenmeye yöneliktir.
+
+Sadece kullanıcı açık şekilde:
+- görüşmek istiyorum
+- randevu alalım
+- sizinle konuşalım
+
+gibi ifadeler kullanıyorsa satış aşaması kabul edilir.
+
+Aksi durumda kullanıcıyı bilgi aşamasında tut ve sistemin ilgili özelliğini açıkla.
 
 SATIŞ SİNYALİ GELİNCE YAPILACAKLAR:
 - Uzun açıklama yapma
@@ -342,6 +356,35 @@ function asksForPrice(message) {
 }
 
 function asksForMeeting(message) {
+  const lower = normalizeText(message);
+
+  const strongMeetingPatterns = [
+    "görüşelim",
+    "goruselim",
+    "sizinle görüşmek istiyorum",
+    "sizinle gorusmek istiyorum",
+    "ekibinizle görüşmek istiyorum",
+    "ekibinizle gorusmek istiyorum",
+    "görüşme ayarlayalım",
+    "gorusme ayarlayalim",
+    "randevu alalım",
+    "randevu alalim",
+    "randevu oluştur",
+    "randevu olustur",
+    "randevu oluşturmak istiyorum",
+    "randevu olusturmak istiyorum",
+    "link at",
+    "link paylaş",
+    "link paylas",
+    "takvim linki",
+    "iletişime geçelim",
+    "iletisime gecelim",
+    "başlayalım",
+    "baslayalim"
+  ];
+
+  return strongMeetingPatterns.some((p) => lower.includes(p));
+}function asksForMeeting(message) {
   const lower = normalizeText(message);
   const patterns = [
     "görüşme ayarlayalım",
